@@ -40,6 +40,32 @@ where
     }
 }
 
+#[cfg(feature = "tokio")]
+impl<T> DropStream<T>
+where
+    T: Stream + ?Sized,
+{
+    pub fn new_closure<Fut>(stream: Pin<Box<T>>, future: Fut) -> DropStream<T>
+    where
+        Fut: Future + 'static,
+        Fut::Ouput: 'static,
+    {
+        let (tx, rx) = futures::channel::oneshot::channel();
+
+        let myself = Self {
+            stream,
+            tx: Some(tx),
+        };
+
+        tokio::spawn(async move {
+            let _ = rx.await;
+            let _ = future.await;
+        });
+
+        return myself;
+    }
+}
+
 impl<T> Drop for DropStream<T>
 where
     T: Stream + ?Sized,
