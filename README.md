@@ -4,6 +4,8 @@ Do you need to know when your stream is dropped, after you pass it off?
 `DropStream` will send a message to a `futures::channel::oneshot::Reciever` upon being dropped. You can run cleanup code and close connections when your stream's consumer drops it.
 This is especially useful when using frameworks that consume data streams.
 
+See on [crates.io](https://crates.io/crates/drop-stream)
+
 ## Example
 ```rust
 struct MyDataService {
