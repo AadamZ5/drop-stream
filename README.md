@@ -1,3 +1,5 @@
+**⚠️ Archived:** This repository has been archived in favor of a more minimal implementation at https://github.com/DreamplaySE/drop-stream and the crates.io crate ownership has been transferred.
+
 # drop-stream
 Do you need to know when your stream is dropped, after you pass it off?
 
